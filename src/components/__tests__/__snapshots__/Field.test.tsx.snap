@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Field it renders 1`] = `
+<div
+  className="field"
+>
+  <label>
+    Label
+  </label>
+  <input
+    name="fieldName"
+    onChange={[MockFunction]}
+    placeholder={undefined}
+    type="text"
+  />
+</div>
+`;

@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SendForm it renders 1`] = `
+<form>
+  <div
+    className="field"
+  >
+    <label>
+      Recipient's name
+    </label>
+    <input
+      name="recipient_name"
+      onChange={[Function]}
+      placeholder="Recipient's name"
+      type="text"
+    />
+  </div>
+  <div
+    className="field"
+  >
+    <label>
+      Recipient's email
+    </label>
+    <input
+      name="reciever_email"
+      onChange={[Function]}
+      placeholder="Recipient's email"
+      type="text"
+    />
+  </div>
+  <div
+    className="field"
+  >
+    <label>
+      Amount to send
+    </label>
+    <input
+      name="amount_to_send"
+      onChange={[Function]}
+      placeholder="Amount to send"
+      type="number"
+    />
+  </div>
+  <button
+    onClick={[Function]}
+  >
+    Send money
+  </button>
+</form>
+`;
