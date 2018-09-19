@@ -11,7 +11,7 @@ const PreviousTransactions = ({transactionList}: IPreviousTransactionsProps) => 
       {transactionList.map((transaction: IPreviousTransactions, i: number) => {
         return (<div className='previous-transaction' key={i}>
           <span className='reciever'>
-            {transaction.reciever_name}
+            {transaction.reciever_name} | 
           </span>
           <span className='amount'>
             {transaction.amount}

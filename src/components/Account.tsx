@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { setCurrentAmount } from "../actions/accountActions";
 import PreviousTransactions from "./PreviousTransactions";
 import { IPreviousTransactions } from "../initialState";
-import CircularGraphic from "./circulargraphic";
+import CircularGraphic from "./CircularGraphic";
 
 interface IAccount {
   actions: any;
@@ -41,7 +41,8 @@ class Account extends React.Component<IAccount & IStateProps, any> {
     return (
       <React.Fragment>
         <CircularGraphic amountLeft={this.props.account.currentAmount} amountSent={this.props.account.amountSent}/>
-        {this.props.account.currentAmount}
+        <p>Current amount: {this.props.account.currentAmount}</p>
+        <p>Total amount sent: {this.props.account.amountSent}</p>
         {previousTransactions && previousTransactions.length > 0 ? <PreviousTransactions transactionList={previousTransactions} /> : 'No previous transactions'}
       </React.Fragment>
     )
@@ -52,6 +53,7 @@ const mapStateToProps = (state: IStateProps) => {
   return {
     account: {
       currentAmount: state.account.currentAmount,
+      amountSent: state.account.amountSent,
       previousTransactions: state.account.previousTransactions,
     }
   }

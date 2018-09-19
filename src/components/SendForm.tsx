@@ -5,7 +5,7 @@ import {Dispatch, bindActionCreators} from "redux";
 import { makeTransaction, updateTransactionData } from "../actions/transactionActions";
 import { updateErrors } from "../actions/updateErrorsActions";
 import { validateField } from "../validation/SendFormValidation";
-import { saveTransaction, setCurrentAmount } from "../actions/accountActions";
+import { saveTransaction, setCurrentAmount, setAmountSent } from "../actions/accountActions";
 import Field from "./Field";
 
 interface ISendFormProps {
@@ -20,6 +20,7 @@ interface IStateProps {
   }
   account: {
     currentAmount: number;
+    amountSent: number;
   };
   errors: any;
 }
@@ -45,21 +46,24 @@ class SendForm extends React.Component<ISendFormProps & IStateProps, any> {
           value={this.props.transaction.reciever_name}
           handleOnChange={this.handleOnChange}
           placeholder={`Recipient's name`}
-          label={`Recipient's name`}/>
+          label={`Recipient's name`}
+          error={this.props.errors.reciever_name}/>
         <Field
           type='text'
           name='reciever_email'
           value={this.props.transaction.reciever_email}
           handleOnChange={this.handleOnChange}
           placeholder={`Recipient's email`}
-          label={`Recipient's email`}/>
+          label={`Recipient's email`}
+          error={this.props.errors.reciever_email}/>
         <Field
           type='number'
           name='amount'
           value={this.props.transaction.amount}
           handleOnChange={this.handleOnChange}
           placeholder={`Amount to send`}
-          label={`Amount to send`}/>
+          label={`Amount to send`}
+          error={this.props.errors.amount}/>
         <button onClick={this.handleOnClick}>Send money</button>
       </form>
     )
@@ -82,6 +86,12 @@ class SendForm extends React.Component<ISendFormProps & IStateProps, any> {
     if (!this.props) {
       return false;
     }
+
+    Object.keys(validationMapping).map((field: string) => {
+      const validationResult = validateField(field, this.props.transaction[field], validationMapping[field]);
+      this.props.actions.updateErrors(validationResult)
+    });
+
     const errors = this.props.errors ? this.props.errors : false;
     return errors ? Object.keys(errors).every((error: string) => this.props.errors[error] === true) : false;
   }
@@ -92,12 +102,15 @@ class SendForm extends React.Component<ISendFormProps & IStateProps, any> {
     if (this.isFormValid() && this.props.transaction.amount <= this.props.account.currentAmount) {
 
       // TODO: handleOnClick should not handle all of this.
-      // TODO: Not here but add support for amountSent
       this.props.actions.makeTransaction(this.props.transaction);
       this.props.actions.saveTransaction(this.props.transaction);
 
       const newAmout = currentAmount - this.props.transaction.amount!;
       this.props.actions.setCurrentAmount(newAmout);
+
+      const amountSent = this.props.account.amountSent ? this.props.account.amountSent : 0;
+      const updatedAmountSent = +this.props.transaction.amount + +amountSent;
+      this.props.actions.setAmountSent(updatedAmountSent);
 
       this.props.actions.updateTransactionData({
         transaction: {
@@ -119,7 +132,8 @@ const mapStateToProps = (state: IStateProps) => {
       reciever_email: state.transaction.reciever_email,
     },
     account: {
-      currentAmount: state.account.currentAmount
+      currentAmount: state.account.currentAmount,
+      amountSent: state.account.amountSent,
     },
     errors: state.errors,
   }
@@ -132,7 +146,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
       updateErrors,
       makeTransaction,
       saveTransaction,
-      setCurrentAmount
+      setCurrentAmount,
+      setAmountSent
     }, dispatch)
   }
 };

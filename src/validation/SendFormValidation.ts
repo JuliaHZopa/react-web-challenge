@@ -8,6 +8,10 @@ const rules = {
 }
 
 export const validateField = (fieldName: string, fieldValue: string | number, rulesToCheck: string[]) => {
+  if (fieldValue === undefined) {
+    return {[fieldName]: 'This field is required'};
+  }
+
   const errors = rulesToCheck.map((rule: string) => {
     if(rules.hasOwnProperty(rule)) {
       return rules[rule](fieldValue);
