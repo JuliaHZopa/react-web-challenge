@@ -8,7 +8,7 @@ interface IFieldProps {
   handleOnChange: (e: React.ChangeEvent) => void;
   placeholder?: string;
   label: string;
-  error?: string | boolean;
+  error?: any;
 }
 
 const Field = ({type, name, value, handleOnChange, placeholder, label, error}: IFieldProps) => {

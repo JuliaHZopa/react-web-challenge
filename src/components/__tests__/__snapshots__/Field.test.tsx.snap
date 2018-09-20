@@ -12,6 +12,7 @@ exports[`Field it renders 1`] = `
     onChange={[MockFunction]}
     placeholder={undefined}
     type="text"
+    value=""
   />
 </div>
 `;

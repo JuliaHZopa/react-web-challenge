@@ -9,10 +9,11 @@ exports[`SendForm it renders 1`] = `
       Recipient's name
     </label>
     <input
-      name="recipient_name"
+      name="reciever_name"
       onChange={[Function]}
       placeholder="Recipient's name"
       type="text"
+      value={undefined}
     />
   </div>
   <div
@@ -26,6 +27,7 @@ exports[`SendForm it renders 1`] = `
       onChange={[Function]}
       placeholder="Recipient's email"
       type="text"
+      value={undefined}
     />
   </div>
   <div
@@ -35,10 +37,11 @@ exports[`SendForm it renders 1`] = `
       Amount to send
     </label>
     <input
-      name="amount_to_send"
+      name="amount"
       onChange={[Function]}
       placeholder="Amount to send"
       type="number"
+      value={undefined}
     />
   </div>
   <button

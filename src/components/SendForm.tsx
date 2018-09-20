@@ -38,6 +38,8 @@ class SendForm extends React.Component<ISendFormProps & IStateProps, any> {
   }
 
   public render() {
+    const errors = this.props.errors;
+
     return (
       <form>
         <Field
@@ -47,7 +49,7 @@ class SendForm extends React.Component<ISendFormProps & IStateProps, any> {
           handleOnChange={this.handleOnChange}
           placeholder={`Recipient's name`}
           label={`Recipient's name`}
-          error={this.props.errors.reciever_name}/>
+          error={errors && errors.reciever_name ? errors.reciever_name : null}/>
         <Field
           type='text'
           name='reciever_email'
@@ -55,7 +57,7 @@ class SendForm extends React.Component<ISendFormProps & IStateProps, any> {
           handleOnChange={this.handleOnChange}
           placeholder={`Recipient's email`}
           label={`Recipient's email`}
-          error={this.props.errors.reciever_email}/>
+          error={errors && errors.reciever_email ? errors.reciever_email : null}/>
         <Field
           type='number'
           name='amount'
@@ -63,7 +65,7 @@ class SendForm extends React.Component<ISendFormProps & IStateProps, any> {
           handleOnChange={this.handleOnChange}
           placeholder={`Amount to send`}
           label={`Amount to send`}
-          error={this.props.errors.amount}/>
+          error={errors && errors.amount ? errors.amount : null}/>
         <button onClick={this.handleOnClick}>Send money</button>
       </form>
     )

@@ -17,7 +17,7 @@ const updateTractionDataAction = {
 
 describe('transactionReducer', () => {
   test('should makeTransaction', () => {
-    expect(transactionReducer(initialState.transaction, makeTractionAction)).toEqual({...initialState, ...makeTractionAction.value})
+    expect(transactionReducer(initialState.transaction, makeTractionAction)).toEqual({...initialState.transaction, ...makeTractionAction.value})
   });
 
   test('should update transaction', () => {
