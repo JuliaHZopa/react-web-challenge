@@ -7,27 +7,55 @@ interface ICircularGraphicProps {
   amountSent: number;
 }
 
-const CircularGraphic = ({amountSent, amountLeft}: ICircularGraphicProps) => {
+const CircularGraphic = ({ amountSent = 0, amountLeft }: ICircularGraphicProps) => {
+  if (amountLeft === undefined) {
+    return null;
+  }
+
+  const radius = 45;
+  const dashArray = radius * Math.PI * 2;
+  const dashOffset = dashArray - dashArray * amountSent / (amountLeft + amountSent);
 
   const StyledWrapper = styled.div`
-    background-color: blue;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: relative;
   `;
 
-  const StyledAmountLeft = styled.div`
-    background-color: green;
-    width: ${amountLeft}px
+  const StyledCircleBackground = styled.circle`
+    fill: white;
+    stroke: darkgrey;
+    stroke-width: 10px;
   `;
 
-
-  const StyledAmountSent = styled.div`
-    background-color: yellow;
-    width: ${amountSent}px
+  const StyledCircleProgress = styled.circle`
+    fill: none;
+    stroke: darkslategrey;
+    ;
+    stroke-width: 10px;
   `;
 
   return (
     <StyledWrapper>
-      <StyledAmountLeft />
-      <StyledAmountSent />
+      <svg
+        width={200}
+        height={200}
+        viewBox={'0 0 200 200'}>
+        <StyledCircleBackground
+          cx={100}
+          cy={100}
+          r={radius} />
+        <StyledCircleProgress
+          cx={100}
+          cy={100}
+          r={radius}
+          transform={'rotate(-90 100 100)'}
+          style={{
+            strokeDasharray: dashArray,
+            strokeDashoffset: dashOffset
+          }}/>
+      </svg>
     </StyledWrapper>
   )
 }
